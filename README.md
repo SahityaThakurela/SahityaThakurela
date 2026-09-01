@@ -8,11 +8,6 @@
 🔴 🟡 🟢&nbsp;&nbsp;**developer.js**
 
 ```javascript
-/**
- * @file developer.js
- * @description Profile configuration
- */
-
 const developer = {
   identity: {
     name: "Sahitya Thakurela",
@@ -25,21 +20,16 @@ const developer = {
     languages: ["TypeScript", "JavaScript", "C++", "Kotlin"],
     stack: ["MERN", "PostgreSQL", "Prisma", "NeonDB"],
     apis: ["GraphQL", "Socket.io"],
-    dsa: "120+ Problems Solved in C++"
+    dsa: "150+ Problems Solved in C++"
   },
 
   projects: [
-    "Spotify Clone",
-    "GitHub User Finder",
-    "Weather Forecast"
+    "Cafe Come",
+    "Chal Chitra",
   ],
-
-  communities: {
-    gdg: "Web Development Member"
-  },
 
   hobbies: ["Weightlifting", "Bodybuilding"],
 
-  contact: "linkedin.com/in/sahitya-thakurela-9b6b4b368"
+  contact: "thakurela.sahitya@gmail.com"
 };
 ```
