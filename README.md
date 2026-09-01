@@ -1,16 +1,91 @@
-## Hi there 👋
+<div align="center">
+  <table>
+    <tr>
+      <td valign="top">
+<pre>
+                                         :@=#@%#*#%*%@%=                                            
+                                       @%%%+  :=-::  - .#@*                                         
+                                     =%:   --=-:==.  -  ::-:#                                       
+                                    -.   %-@    . ==##%=   :%=:                                     
+                                   :: =+ .:  .:::    .%%%:.  .@-                                    
+                                 .  #*: .-. -           -.@+: .-                                    
+                                  .%   . :   :-..           .  =+                                   
+                                 -:  ..:    .      %==+#     . :*                                   
+                                 #:.      +=      :  .-*%@@    .                                    
+                                     -**===-@@@@#++@@@@@@@@@.                                       
+                                   . @@@:     -%@@%:      -@@ -                                     
+                                   - @@@%@@@#=: ++%:--. %@#@@ .                                     
+                                   @ +@          -@      =.=@+#.                                    
+                                   :-@@%@=+**=:.+#@@+-+#*#@*@@#-                                    
+                                  =@ @@@%+**+=:@+.%@@+#**#%@@+ *                                    
+                                   = -@#==*##@@@@@@@@++++=*#%=-                                     
+                                   @@-**=-*#%+   -   %@%*=+#*                                       
+                                     :****#:           -@%*+%                                       
+                                       - :%@   -*###*. +@::=                                        
+                                          #@@@@=   =@@@@@*.+                                        
+                                          . #@@@@@@@@@@=:                                           
+                                       *+    . ::- :      :@                                        
+                                       :%-              .@@@                                        
+                                       -#*#*+-       :@@@#*#                                        
+                                     @@@+=+*%@@@@%@@@@@#+==*@                                       
+                                 @@@@ +*-==+==+==++*%@%***++@@@+@@                                  
+                             @@@@+%#@#:==-=+=+#*+*+*%%+*#*#++*#= @@@@                               
+                       @@@%@#@-:%@%%@@@  .+#+++*++*#*++*=#@*+=- @@%+.@@@@@                          
+                 @@@@-@*-%@@*%@%@@@@@@@@@    =+++*=+=+*::=#-  :@@@@@*#@#@@#@@@@                     
+              @=-@@::@*@@%@@@@@@@@@@@@@@@@@@              =*@@@@@@@@@@@@@@@@@+@@@@                  
+             @@@+-@@@@#@@@@@@@@@##@%-%*+@@@@@@@@@@@@@@@@@@@@@@@@@%@@@@@@@@@@#@@:=+@@@@              
+            @@#@%@%+*@@@%@@*@@@@@%@@%%#+==@*#@@@@%@@@@@@@%@##--@@#@@@@@@@@@@@@@@@@*=-+@             
+           @@%@%@@%@@-%@#@@%@@@@@@%@@*%#%##%==%@@@-#+#-###++#=%@*#@@@@@%@@@@@@@@%%%@@@@@            
+          #@%#%*#=**+@-+++#=@@#@@@@@@#*%##+@%-#@@@++*%*@@*+##+@@*@%@@+@%#@@@@@@%@@@#@@@@            
+          @#*%@%%@@+*=#+*#%-%#+#@*%*@@*@@%%*%+=%@@%++*%@@**#**@%*@*@@@=*#@##%%#@@#%@@@@@@           
+          @%@@+=**##@###=%#+@*=#@*@=@@#*@###%*:*@=@@@*@@%###=*@**#+@%*%-+%++#*%#*@@*%@%@@@          
+          @%+*#@@+****#*.=%%@++##+%-@@%*@%##*#:#@.+*%%@@#+##+#@+##+@#*#%#@=%%#+@#+*@@##@@@          
+         -%#%@**++****%%* :@%#*@*#%=%@%=%%*##@-=@# %*#@@##%*++@***=@%*%##@-#*+=-+@@#*%+@@@          
+          #@#+-*%%**%%%##: @=@##*##+%%@+#@%#*@+:@@ +%#@@###@*+@@**=@@=*@@@ =+=*@%+***@%@@@          
+         %@**@@@#-:::-%%%#:: %%*##**%%@*+@@**%*.#@ .@*@@%*%@@@+@@@@@@#=%@# #*=..+*%@%##%@#          
+</pre>
+      </td>
+      <td valign="top">
 
-<!--
-**SahityaThakurela/SahityaThakurela** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+```javascript
+/**
+ * @file developer.js
+ * @description Profile configuration
+ */
 
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+const developer = {
+  identity: {
+    name: "Sahitya Thakurela",
+    education: "B.Tech CSE @ JSS Academy",
+    hardware: "MacBook Air"
+  },
+  
+  skills: {
+    languages: ["TypeScript", "JavaScript", "C++", "Kotlin"],
+    stack: ["MERN", "PostgreSQL", "Prisma", "NeonDB"],
+    apis: ["GraphQL", "Socket.io"],
+    dsa: "120+ Problems Solved in C++"
+  },
+  
+  projects: {
+    janVaani: {
+      type: "Hackathon Project",
+      description: "Voice-first platform for rural citizens"
+    },
+    portfolio: [
+      "Spotify Clone", 
+      "GitHub User Finder", 
+      "Weather Forecast"
+    ]
+  },
+  
+  communities: {
+    gdg: "Web Development Member",
+    ecell: "Entrepreneurship Development Cell"
+  },
+  
+  hobbies: [
+    "Weightlifting", 
+    "Bodybuilding"
+  ]
+};
