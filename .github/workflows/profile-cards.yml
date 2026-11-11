@@ -5,7 +5,6 @@ on:
     branches: [main]
     paths:
       - "README.md"
-      - "scripts/render_readme_cards.py"
       - ".github/workflows/profile-cards.yml"
       - "Warm Studio Portrait in Black Hoodie.png"
   schedule:
@@ -46,8 +45,6 @@ jobs:
       - name: Render hero PNG
         run: python scripts/render_hero.py
 
-      - name: Render SVG cards
-        run: python scripts/render_readme_cards.py
 
       - name: Commit updated cards
         run: |
@@ -86,7 +83,6 @@ jobs:
 #     branches: [main]
 #     paths:
 #       - "README.md"
-#       - "scripts/render_readme_cards.py"
 #       - ".github/workflows/profile-cards.yml"
 #   schedule:
 #     - cron: "0 2 * * *"
@@ -123,8 +119,6 @@ jobs:
 #             "https://github-contributions-api.jogruber.de/v4/SahityaThakurela?y=last" \
 #             --output data/contributions.json
 
-#       - name: Render SVG cards
-#         run: python scripts/render_readme_cards.py
 
 #       - name: Commit updated cards
 #         run: |
