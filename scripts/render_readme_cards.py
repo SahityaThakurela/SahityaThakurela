@@ -9,6 +9,7 @@ If font downloads are unavailable, locally installed DejaVu/Lato fonts are used.
 """
 from __future__ import annotations
 
+import io
 import base64
 import calendar
 import datetime as dt
@@ -29,6 +30,7 @@ CACHE_DIR = ROOT / ".cache" / "fonts"
 STATIC = os.getenv("STATIC", "0").strip().lower() in {"1", "true", "yes", "on"}
 USERNAME = "SahityaThakurela"
 AVATAR_URL = "https://avatars.githubusercontent.com/u/135995348?v=4"
+PORTRAIT_FILE = ROOT / "Warm Studio Portrait in Black Hoodie.png"
 
 PAPER = "#F5F3EE"
 PAPER_2 = "#ECE9E1"
@@ -229,25 +231,104 @@ def contribution_stats(days: list[dict[str, Any]]) -> dict[str, Any]:
         monthly.append({"key": f"{year}-{month:02d}", "name": calendar.month_abbr[month], "count": count})
     return {"ready": True, "streak": streak, "active": active, "busiest": busiest, "total": total, "monthly": monthly, "recent": recent}
 
-def ascii_portrait() -> list[str]:
-    """Convert the GitHub avatar into ink-like ASCII rows; monogram if offline."""
-    try:
-        from PIL import Image, ImageOps
-        avatar = CACHE_DIR / "avatar.png"
-        if not avatar.exists() or avatar.stat().st_size < 1024:
-            download(AVATAR_URL, avatar)
-        if avatar.exists() and avatar.stat().st_size > 1024:
-            image = Image.open(avatar).convert("L")
-            w, h = image.size
-            side = min(w, h)
-            image = image.crop(((w-side)//2, (h-side)//2, (w+side)//2, (h+side)//2))
-            image = ImageOps.fit(image, (34, 25), method=Image.Resampling.LANCZOS)
-            ramp = "@%#*+=-:. "
-            pixels = list(image.getdata())
-            return ["".join(ramp[min(len(ramp)-1, p * len(ramp) // 256)] for p in pixels[i*34:(i+1)*34]) for i in range(25)]
-    except Exception as exc:
-        print(f"[portrait] Using monogram fallback: {exc}", file=sys.stderr)
-    return []
+
+def engraved_portrait_data_uri() -> str:
+    """Create a transparent, engraved-style portrait embedded in the hero SVG."""
+    from PIL import (
+        Image,
+        ImageChops,
+        ImageEnhance,
+        ImageFilter,
+        ImageOps,
+    )
+
+    if not PORTRAIT_FILE.exists():
+        raise FileNotFoundError(
+            f"Portrait image not found: {PORTRAIT_FILE}"
+        )
+
+    with Image.open(PORTRAIT_FILE) as original:
+        source = ImageOps.exif_transpose(original).convert("RGB")
+
+    # Crop to a square and resize for the SVG portrait area.
+    width, height = source.size
+    side = min(width, height)
+
+    left = (width - side) // 2
+    top = (height - side) // 2
+
+    source = source.crop((
+        left,
+        top,
+        left + side,
+        top + side
+    ))
+
+    source = ImageOps.fit(
+        source,
+        (520, 520),
+        method=Image.Resampling.LANCZOS
+    )
+
+    # Convert the photograph into a pencil-sketch effect.
+    gray = ImageOps.autocontrast(
+        ImageOps.grayscale(source)
+    )
+
+    inverted = ImageOps.invert(gray)
+
+    blurred = inverted.filter(
+        ImageFilter.GaussianBlur(radius=10)
+    )
+
+    sketch = ImageChops.dodge(gray, blurred)
+    sketch = ImageOps.autocontrast(sketch)
+
+    # Blend original tonal details with engraved lines.
+    engraved = Image.blend(gray, sketch, 0.45)
+
+    engraved = ImageEnhance.Contrast(
+        engraved
+    ).enhance(1.25)
+
+    # Warm monochrome ink matching the cream banner.
+    colored = ImageOps.colorize(
+        engraved,
+        black="#383630",
+        white="#F5F3EE"
+    )
+
+    # Remove the white studio background.
+    # Darker foreground pixels remain fully opaque.
+    gray_original = ImageOps.grayscale(source)
+
+    alpha = Image.eval(
+        gray_original,
+        lambda pixel: (
+            255
+            if pixel <= 225
+            else max(0, min(255, int((255 - pixel) * 8.5)))
+        )
+    )
+
+    portrait = colored.convert("RGBA")
+    portrait.putalpha(alpha)
+
+    # Export PNG into memory and encode it for SVG embedding.
+    output = io.BytesIO()
+
+    portrait.save(
+        output,
+        format="PNG",
+        optimize=True
+    )
+
+    encoded = base64.b64encode(
+        output.getvalue()
+    ).decode("ascii")
+
+    return encoded
+
 
 def render_hero(font_css: str) -> str:
     W, H = 1200, 420
@@ -260,18 +341,37 @@ def render_hero(font_css: str) -> str:
     parts.append('<text x="63" y="382" font-size="24" fill="#42434A">Full-stack developer. My side projects have side projects.</text>')
     parts.append('<text x="63" y="405" class="mono" font-size="13" letter-spacing="1.3" fill="%s">B.TECH CSE @ JSS ACADEMY  ·  GDG WEB DEVELOPER  ·  NOIDA, INDIA</text>' % MUTED)
 
-    parts.append('<circle cx="965" cy="212" r="157" fill="%s"/>' % PAPER_2)
-    parts.append('<circle cx="965" cy="212" r="157" fill="none" stroke="%s" stroke-width="1.5"/>' % LINE)
-    rows = ascii_portrait()
+        
+    # Warm circular background behind the portrait.
+    parts.append(
+        f'<circle cx="965" cy="212" r="157" fill="{PAPER_2}"/>'
+    )
+    
+    parts.append(
+        f'<circle cx="965" cy="212" r="157" '
+        f'fill="none" stroke="{LINE}" stroke-width="1.5"/>'
+    )
+    
+    # Generate the real engraved portrait.
+    portrait_data = engraved_portrait_data_uri()
+    
+    # Embed the portrait directly into the SVG.
+    parts.append(
+        f'<image '
+        f'x="805" y="52" '
+        f'width="320" height="320" '
+        f'preserveAspectRatio="xMidYMid meet" '
+        f'xlink:href="data:image/png;base64,{portrait_data}"/>'
+    )
+    
+    # Small footer below the portrait.
+    parts.append(
+        f'<text x="965" y="398" '
+        f'class="mono" font-size="12" '
+        f'text-anchor="middle" letter-spacing="2" '
+        f'fill="{MUTED}">ST / 2026</text>'
+    )
 
-    if rows:
-        start_x, start_y = 833, 125
-        for idx, row in enumerate(rows):
-            parts.append(f'<text x="{start_x}" y="{start_y + idx*10}" class="mono soft" font-size="11" letter-spacing="1" fill="#41485E">{safe_text(row)}</text>')
-    else:
-        parts.append(f'<text x="965" y="248" class="serif" text-anchor="middle" font-size="118" fill="{BLUE}">ST</text>')
-    parts.append('<text x="965" y="398" class="mono" font-size="12" text-anchor="middle" letter-spacing="2" fill="%s">ST / 2026</text>' % MUTED)
-    parts.append('</svg>')
     return "\n".join(parts)
 
 def render_tile(font_css: str, title: str, eyebrow: str, subtitle: str, number: str, accent: str, kind: str, delay: float) -> str:
