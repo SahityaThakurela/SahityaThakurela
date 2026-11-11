@@ -277,12 +277,20 @@ def engraved_portrait_data_uri() -> str:
 
     inverted = ImageOps.invert(gray)
 
+    
     blurred = inverted.filter(
         ImageFilter.GaussianBlur(radius=10)
     )
-
-    sketch = ImageChops.dodge(gray, blurred)
+    
+    # Pillow-compatible color-dodge approximation.
+    sketch = ImageChops.divide(
+        gray,
+        ImageOps.invert(blurred),
+        scale=255
+    )
+    
     sketch = ImageOps.autocontrast(sketch)
+
 
     # Blend original tonal details with engraved lines.
     engraved = Image.blend(gray, sketch, 0.45)
