@@ -388,7 +388,7 @@
 <rect class="enter" x="1052" y="108" width="13" height="13" rx="3" fill="#ECE9E1" style="animation-delay:2.45s"/>
 <rect class="enter" x="1052" y="126" width="13" height="13" rx="3" fill="#ECE9E1" style="animation-delay:2.45s"/>
 <rect class="enter" x="1052" y="144" width="13" height="13" rx="3" fill="#DCE2FF" style="animation-delay:2.45s"/>
-<rect class="enter" x="1052" y="162" width="13" height="13" rx="3" fill="#DCE2FF" style="animation-delay:2.45s"/>
+<rect class="enter" x="1052" y="162" width="13" height="13" rx="3" fill="#AEBBFF" style="animation-delay:2.45s"/>
 <text x="170" y="94" class="mono" font-size="12" fill="#777873">Dec</text>
 <text x="242" y="94" class="mono" font-size="12" fill="#777873">Jan</text>
 <text x="332" y="94" class="mono" font-size="12" fill="#777873">Feb</text>

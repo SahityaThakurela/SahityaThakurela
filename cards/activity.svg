@@ -56,7 +56,7 @@
 <text x="910.9" y="401" text-anchor="middle" class="mono" font-size="13" fill="#777873">Sep</text>
 <rect class="enter" x="964.3" y="283.2" width="70.8" height="88.8" rx="7" fill="#8195FF" style="animation-delay:1.55s"/>
 <text x="999.7" y="401" text-anchor="middle" class="mono" font-size="13" fill="#777873">Oct</text>
-<rect class="enter" x="1053.2" y="287.1" width="70.8" height="84.9" rx="7" fill="#8195FF" style="animation-delay:1.58s"/>
-<text x="1088.6" y="277.1" text-anchor="middle" class="mono" font-size="12" fill="#191A1F">43</text>
+<rect class="enter" x="1053.2" y="281.2" width="70.8" height="90.8" rx="7" fill="#8195FF" style="animation-delay:1.58s"/>
+<text x="1088.6" y="271.2" text-anchor="middle" class="mono" font-size="12" fill="#191A1F">46</text>
 <text x="1088.6" y="401" text-anchor="middle" class="mono" font-size="13" fill="#777873">Nov</text>
 </svg>
