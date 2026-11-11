@@ -1,8 +1,4 @@
-<div align="center">
-  <img src="./cards/hero.svg"
-       width="100%"
-       alt="Sahitya Thakurela GitHub Banner">
-</div>
+
 <p align="center">
   <img src="cards/hero.svg" width="100%" alt="Sahitya Thakurela — full-stack developer and software tinkerer" />
 </p>
