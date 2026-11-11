@@ -9,6 +9,7 @@ If font downloads are unavailable, locally installed DejaVu/Lato fonts are used.
 """
 from __future__ import annotations
 
+import cairosvg
 import io
 import base64
 import calendar
@@ -522,6 +523,8 @@ def render_graph(font_css: str, days: list[dict[str, Any]]) -> str:
     return "\n".join(parts)
 
 def main() -> None:
+    global STATIC
+    
     CARDS_DIR.mkdir(parents=True, exist_ok=True)
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     font_css = build_font_css()
@@ -541,6 +544,24 @@ def main() -> None:
     }
     for filename, content in files.items():
         (CARDS_DIR / filename).write_text(content + "\n", encoding="utf-8")
+
+        # Generate a static PNG version of the hero for GitHub README.
+    original_static = STATIC
+    
+    try:
+        STATIC = True
+        static_hero = render_hero(font_css)
+    finally:
+        STATIC = original_static
+    
+    cairosvg.svg2png(
+        bytestring=(static_hero + "\n").encode("utf-8"),
+        write_to=str(CARDS_DIR / "hero.png"),
+        output_width=2400,
+        output_height=840,
+    )
+    
+    print("Generated hero.png successfully.")
     mode = "static preview" if STATIC else "animated cards"
     print(f"Rendered {len(files)} {mode} in {CARDS_DIR}")
     if not stats["ready"]:
