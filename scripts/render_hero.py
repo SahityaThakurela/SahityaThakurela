@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render a GitHub-safe PNG hero banner from the source portrait."""
+"""Render a GitHub-safe PNG hero with a monochrome dot-matrix portrait."""
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont, ImageOps, ImageFilter
 
@@ -11,6 +11,8 @@ PAPER = "#F5F3EE"
 INK = "#191A1F"
 MUTED = "#777873"
 BLUE = "#3858F5"
+DOT = (48, 50, 58, 235)
+
 
 def font(paths, size):
     for path in paths:
@@ -19,6 +21,7 @@ def font(paths, size):
         except OSError:
             pass
     return ImageFont.load_default()
+
 
 serif = font([
     "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf",
@@ -32,45 +35,79 @@ mono = font([
     "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",
 ], 14)
 
+
+def draw_dot_portrait(canvas):
+    """Translate dark portrait detail into small dots; the light backdrop disappears."""
+    size = (440, 370)
+    portrait = Image.open(SOURCE).convert("RGB")
+    portrait = ImageOps.fit(
+        portrait, size, method=Image.Resampling.LANCZOS,
+        centering=(0.5, 0.43),
+    )
+    gray = ImageOps.autocontrast(ImageOps.grayscale(portrait), cutoff=1)
+    gray = gray.filter(ImageFilter.GaussianBlur(0.35))
+
+    # A subtle oval keeps the dot field visually contained without a photo frame.
+    mask = Image.new("L", size, 0)
+    ImageDraw.Draw(mask).ellipse((8, 2, size[0] - 8, size[1] - 2), fill=255)
+    pixels = gray.load()
+    mask_pixels = mask.load()
+
+    layer = Image.new("RGBA", size, (0, 0, 0, 0))
+    dots = ImageDraw.Draw(layer)
+    spacing = 3
+    for y in range(1, size[1] - 1, spacing):
+        for x in range(1, size[0] - 1, spacing):
+            if mask_pixels[x, y] < 128:
+                continue
+            darkness = 255 - pixels[x, y]
+            # Near-white background pixels are omitted, leaving only the person.
+            if darkness < 22:
+                continue
+            radius = 0.25 + (darkness / 255.0) * 1.45
+            cx, cy = x, y
+            dots.ellipse(
+                (cx - radius, cy - radius, cx + radius, cy + radius),
+                fill=DOT,
+            )
+
+    # Fade the far edges slightly so the artwork blends into the paper.
+    alpha = layer.getchannel("A")
+    fade = Image.new("L", size, 255)
+    fade_px = fade.load()
+    for x in range(size[0]):
+        edge = min(x / 34, (size[0] - 1 - x) / 34, 1)
+        factor = max(0, min(1, edge))
+        for y in range(size[1]):
+            fade_px[x, y] = int(255 * factor)
+    alpha = ImageChops.multiply(alpha, fade)
+    layer.putalpha(alpha)
+
+    canvas.alpha_composite(layer, (W - size[0] - 32, 25))
+
+
 def main():
     if not SOURCE.is_file():
         raise FileNotFoundError(f"Portrait source not found: {SOURCE}")
 
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    canvas = Image.new("RGB", (W, H), PAPER)
+    canvas = Image.new("RGBA", (W, H), PAPER)
     draw = ImageDraw.Draw(canvas)
     draw.rounded_rectangle((1, 1, W - 2, H - 2), radius=28, outline="#DEDAD0", width=2)
 
     draw.ellipse((56, 52, 68, 64), fill=BLUE)
     draw.text((84, 43), "SOFTWARE TINKERER  /  FULL-STACK DEVELOPER", font=mono, fill=INK)
-    draw.text((60, 105), "Sahitya", font=serif, fill=INK, stroke_width=0)
-    draw.text((60, 210), "Thakurela", font=serif, fill=INK, stroke_width=0)
+    draw.text((60, 105), "Sahitya", font=serif, fill=INK)
+    draw.text((60, 210), "Thakurela", font=serif, fill=INK)
     draw.rounded_rectangle((62, 330, 120, 336), radius=3, fill=BLUE)
     draw.text((62, 350), "Full-stack developer. My side projects have side projects.", font=sans, fill="#42434A")
     draw.text((62, 393), "B.TECH CSE @ JSS ACADEMY  ·  GDG WEB DEVELOPER  ·  NOIDA, INDIA", font=mono, fill=MUTED)
 
-    size = 320
-    portrait = Image.open(SOURCE).convert("RGB")
-    portrait = ImageOps.fit(portrait, (size, size), method=Image.Resampling.LANCZOS, centering=(0.5, 0.43))
-    mask = Image.new("L", (size, size), 0)
-    ImageDraw.Draw(mask).ellipse((0, 0, size - 1, size - 1), fill=255)
+    draw_dot_portrait(canvas)
+    canvas.convert("RGB").save(OUTPUT, format="PNG", optimize=True)
+    print(f"Rendered dotted portrait hero: {OUTPUT}")
 
-    # Subtle circular shadow and outline.
-    shadow = Image.new("RGBA", (size + 36, size + 36), (0, 0, 0, 0))
-    shadow_mask = Image.new("L", shadow.size, 0)
-    ImageDraw.Draw(shadow_mask).ellipse((18, 18, size + 17, size + 17), fill=90)
-    shadow_mask = shadow_mask.filter(ImageFilter.GaussianBlur(10))
-    shadow.putalpha(shadow_mask)
-    canvas_rgba = canvas.convert("RGBA")
-    canvas_rgba.alpha_composite(shadow, (W - 395, 25))
-
-    portrait_rgba = portrait.convert("RGBA")
-    portrait_rgba.putalpha(mask)
-    canvas_rgba.alpha_composite(portrait_rgba, (W - 377, 43))
-    final = ImageDraw.Draw(canvas_rgba)
-    final.ellipse((W - 378, 42, W - 57, 363), outline="#DEDAD0", width=2)
-    canvas_rgba.convert("RGB").save(OUTPUT, format="PNG", optimize=True)
-    print(f"Rendered {OUTPUT}")
 
 if __name__ == "__main__":
+    from PIL import ImageChops
     main()
