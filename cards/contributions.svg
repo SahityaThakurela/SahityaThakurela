@@ -24,7 +24,6 @@
 <rect x="1" y="1" width="1198" height="298" rx="28" fill="#F5F3EE" stroke="#DEDAD0" stroke-width="2"/>
 <text x="52" y="62" class="serif" font-size="45" fill="#191A1F">A year in <tspan fill="#3858F5" font-style="italic">blue.</tspan></text>
 <text x="760" y="58" class="mono" font-size="15" letter-spacing="2.2" fill="#777873">DAILY CONTRIBUTIONS  /  52 WEEKS</text>
-<rect class="enter" x="116" y="144" width="13" height="13" rx="3" fill="#ECE9E1" style="animation-delay:2.12s"/>
 <rect class="enter" x="116" y="162" width="13" height="13" rx="3" fill="#ECE9E1" style="animation-delay:2.12s"/>
 <rect class="enter" x="116" y="180" width="13" height="13" rx="3" fill="#ECE9E1" style="animation-delay:2.12s"/>
 <rect class="enter" x="116" y="198" width="13" height="13" rx="3" fill="#ECE9E1" style="animation-delay:2.12s"/>
@@ -389,6 +388,7 @@
 <rect class="enter" x="1052" y="108" width="13" height="13" rx="3" fill="#ECE9E1" style="animation-delay:2.45s"/>
 <rect class="enter" x="1052" y="126" width="13" height="13" rx="3" fill="#ECE9E1" style="animation-delay:2.45s"/>
 <rect class="enter" x="1052" y="144" width="13" height="13" rx="3" fill="#DCE2FF" style="animation-delay:2.45s"/>
+<rect class="enter" x="1052" y="162" width="13" height="13" rx="3" fill="#DCE2FF" style="animation-delay:2.45s"/>
 <text x="170" y="94" class="mono" font-size="12" fill="#777873">Dec</text>
 <text x="242" y="94" class="mono" font-size="12" fill="#777873">Jan</text>
 <text x="332" y="94" class="mono" font-size="12" fill="#777873">Feb</text>

@@ -25,10 +25,10 @@
 <text x="52" y="64" class="serif" font-size="45" fill="#191A1F">A little progress, <tspan fill="#3858F5" font-style="italic">every month.</tspan></text>
 <text x="730" y="61" class="mono" font-size="15" letter-spacing="2.2" fill="#777873">CONTRIBUTION RHYTHM  /  LAST 12 MONTHS</text>
 <text x="54" y="110" class="mono" font-size="15" letter-spacing="2.2" fill="#777873">CURRENT STREAK</text>
-<text x="54" y="158" class="serif" font-size="43" fill="#191A1F">1 days</text>
+<text x="54" y="158" class="serif" font-size="43" fill="#191A1F">2 days</text>
 <line x1="280" y1="94" x2="280" y2="169" stroke="#DEDAD0"/>
 <text x="319" y="110" class="mono" font-size="15" letter-spacing="2.2" fill="#777873">ACTIVE DAYS</text>
-<text x="319" y="158" class="serif" font-size="43" fill="#191A1F">104</text>
+<text x="319" y="158" class="serif" font-size="43" fill="#191A1F">105</text>
 <line x1="545" y1="94" x2="545" y2="169" stroke="#DEDAD0"/>
 <text x="584" y="110" class="mono" font-size="15" letter-spacing="2.2" fill="#777873">BUSIEST DAY</text>
 <text x="584" y="158" class="serif" font-size="43" fill="#191A1F">Aug 23 · 19</text>
@@ -56,7 +56,7 @@
 <text x="910.9" y="401" text-anchor="middle" class="mono" font-size="13" fill="#777873">Sep</text>
 <rect class="enter" x="964.3" y="283.2" width="70.8" height="88.8" rx="7" fill="#8195FF" style="animation-delay:1.55s"/>
 <text x="999.7" y="401" text-anchor="middle" class="mono" font-size="13" fill="#777873">Oct</text>
-<rect class="enter" x="1053.2" y="295.0" width="70.8" height="77.0" rx="7" fill="#8195FF" style="animation-delay:1.58s"/>
-<text x="1088.6" y="285.0" text-anchor="middle" class="mono" font-size="12" fill="#191A1F">39</text>
+<rect class="enter" x="1053.2" y="287.1" width="70.8" height="84.9" rx="7" fill="#8195FF" style="animation-delay:1.58s"/>
+<text x="1088.6" y="277.1" text-anchor="middle" class="mono" font-size="12" fill="#191A1F">43</text>
 <text x="1088.6" y="401" text-anchor="middle" class="mono" font-size="13" fill="#777873">Nov</text>
 </svg>
