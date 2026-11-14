@@ -3,31 +3,6 @@
   <img src="cards/hero.png" width="100%" alt="Sahitya Thakurela — full-stack developer and software tinkerer" />
 </p>
 
-<p align="center">
-  <a href="https://www.sahityathakurela.in/#projects"><img src="cards/build.svg" width="32.5%" alt="Build — projects" /></a>
-  <a href="https://github.com/SahityaThakurela"><img src="cards/explore.svg" width="32.5%" alt="Explore — engineering" /></a>
-  <a href="https://www.sahityathakurela.in/#contact"><img src="cards/connect.svg" width="32.5%" alt="Connect — collaboration" /></a>
-</p>
-
-<p align="center">
-  <img src="cards/activity.svg" width="100%" alt="Monthly GitHub activity, current streak, active days and busiest day" />
-</p>
-
-<p align="center">
-  <a href="https://github.com/SahityaThakurela/Nivaran"><img src="cards/repo-nivaran.svg" width="100%" alt="Nivaran — civic-tech platform" /></a>
-</p>
-
-<p align="center">
-  <a href="https://github.com/SahityaThakurela/Jan-Vaani"><img src="cards/repo-jan-vaani.svg" width="100%" alt="Jan Vaani — voice-first AI welfare helpline" /></a>
-</p>
-
-<p align="center">
-  <a href="https://github.com/SahityaThakurela/FlixParty"><img src="cards/repo-flixparty.svg" width="100%" alt="FlixParty — WebRTC watch party" /></a>
-</p>
-
-<p align="center">
-  <img src="cards/contributions.svg" width="100%" alt="GitHub contributions over the last year" />
-</p>
 
 <p align="center">
   <a href="https://www.sahityathakurela.in">Website</a> ·
